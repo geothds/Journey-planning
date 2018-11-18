@@ -202,7 +202,6 @@ for (i=0;i<imax;i++){
 
 IloEnv env;
 	try {
-
 		IloModel model (env);
 
 typedef IloArray<IloNumVarArray> IloNumVarMatrix2x2;
@@ -367,11 +366,9 @@ cplex.solve();
 
 //---------------------- Print Results -------------------------------
 		if (!cplex.solve ()){
-			env.error()<<"Faild to optimize LP."<<endl;
+			env.error() << "Failed to optimize LP." << endl;
 			throw(-1);
 		}
-
-
 		env.out()<<"Solution status = " <<cplex.getStatus()<<endl;
 		env.out()<<"Solution value = " <<cplex.getObjValue()<<endl;
 
@@ -391,10 +388,10 @@ for (i=0;i<imax;i++){
 }	
 }
 	catch ( IloException& e){
-		cerr << "concert exception caught:"<<e<<endl;
+		cerr << "concert exception caught:" << e << endl;
 	}
 	catch (...){
-		cerr<<"Unknown exception caught" <<endl;
+		cerr << "Unknown exception caught" << endl;
 	}
 	env.end();
 
@@ -405,7 +402,7 @@ for (i=0;i<imax;i++){
 	//ts=635;
 
 	puts("Dwse wra enarksis : ");
-     cin >> ts;
+     	cin >> ts;
      
 	//double I[imax];
 	double mint[imax];
