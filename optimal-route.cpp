@@ -1,11 +1,9 @@
-// o parakatw kwdikas ypologizei to kalutero sunduasmo twn 4 diaforetikwn periptwsewn
+// Calculates best combination of 4 instances
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>      
 
-
 using namespace std;
-
   int main()
  {
 	  double tr[1],ts[1],apot[3];
@@ -17,10 +15,8 @@ using namespace std;
 		cin >> ts[0] >> ts[1];
 
 		puts("\nDwse solution value");
-
 		
 		cin >>a>>b>>c>>d;
-
 
 		apot[0]=a+tr[0]+ts[0];
 		apot[1]=b+tr[0]+ts[1];
@@ -28,23 +24,18 @@ using namespace std;
 		apot[3]=d+tr[1]+ts[1];
 
 		for (int i=0;i<4;i++){
-
 				cout << apot[i] <<endl;
-
 		}
 
 		double min=10000000;
 
 		for (int i=0;i<4;i++){
-
 				if(apot[i]<min){
 					min=apot[i];
 				}
-
 		}
 
 		for (int i=0;i<4;i++){
-
 				if(min==apot[i]){
 					cout << "an i=0 diadromi apo to 0 sto 0"<< endl;
 					cout << "an i=1 diadromi apo to 0 sto 1"<< endl;
@@ -54,7 +45,6 @@ using namespace std;
 				}
 
 		}
-
 system("PAUSE");
     return 0;
 }
