@@ -1,5 +1,4 @@
-// o parakatw kwdikas ypologizei mikroteri kai 
-//2i mikroteri apostash apo stash otan dothei simeio afiksis apo to xristi
+// Calculates first and second minimum distance from stop when user inputs starting point
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>      
@@ -12,17 +11,17 @@ using namespace std;
   {
 	double a[13][2]={{22.4162, 39.6388},
 						  {22.4198, 39.6391},
-						  {22.4223,	39.6379},
-						  {22.4249,	39.6355},
-						  {22.4271,	39.6333},
-						  {22.4244,	39.6370},
-						  {22.4205,	39.6391},
-						  {22.4184,	39.6397},
-						  {22.4167,	39.6398},
-						  {22.4204,	39.6376},
-						  {22.4219,	39.6327},
-						  {22.4227,	39.6302},
-						  {22.4184,	39.6427}};
+						  {22.4223, 39.6379},
+						  {22.4249, 39.6355},
+						  {22.4271, 39.6333},
+						  {22.4244, 39.6370},
+						  {22.4205, 39.6391},
+						  {22.4184, 39.6397},
+						  {22.4167, 39.6398},
+						  {22.4204, 39.6376},
+						  {22.4219, 39.6327},
+						  {22.4227, 39.6302},
+						  {22.4184, 39.6427}};
 
 		double lat1,long1,smallest,secondsmallest;
 		double PI = 4.0*atan(1.0);
@@ -36,7 +35,7 @@ using namespace std;
 		switch(input)
 		{
 			case 1:
-//---------------------------------------Ypologismos gia to r-----------------------------------------------
+//---------------------------------------Calculate r-----------------------------------------------
 		puts("Dwse suntetagmenes shmeiou enarkshs diadromhs: ");
 		cin >> lat1 >> long1 ;
 		
@@ -60,7 +59,7 @@ using namespace std;
 			//cout <<"\nH apostasi se lepta ths " << id[i] << "hs stashs apo to simeio enarksis einai: \n" << dist[i] << endl;
 		}   
 
-	   //Ypologismos mikroterhs kai 2hs mikroterhs apostashs apo simeio enarksis  
+	   //Main distance calculation from starting point 
 		if (dist[0] < dist[1]){
 			smallest = dist[0];
 			secondsmallest = dist[1];} 
@@ -88,7 +87,7 @@ using namespace std;
 
 			
 			case 2:
-//------------------------------------------------Ypologismos gia to s--------------------------------------------------	
+//------------------------------------------------Calculate s--------------------------------------------------	
 		puts("\nDwse suntetagmenes shmeiou termatismou ths diadromis: ");
 		cin >> lat1 >> long1;
 
@@ -110,7 +109,7 @@ using namespace std;
 			//cout <<"\nH apostasi se lepta ths " << id[i] << "hs stashs apo to simeio enarksis einai: \n" << dist[i] << endl;
 		}    
    
-			//Ypologismos mikroterhs kai 2hs mikroterhs apostashs apo simeio termatismou  
+			//Main distance calculation from ending point
 			if (dist[0] < dist[1]){
 				smallest = dist[0];
 				secondsmallest = dist[1];} 
@@ -135,7 +134,7 @@ using namespace std;
 	 cout <<"\nMikroterh apostasi: "<< smallest <<"\nkai 2h mikroterh apostash: "<< secondsmallest <<"\n" << endl;
 	 break;
 	 
-//----------------------------------Lathos plhktrologhsh--------------------------------------
+//----------------------------------Error--------------------------------------
 		default:
 		puts("Invalid option, try again\n");
 		break;
