@@ -1,34 +1,21 @@
 #include <ilcplex/ilocplex.h>
-
 ILOSTLBEGIN
-
-
 int main (){
-
-
-
 int i,j,k,k1,k2,m,r,s; 
 const int imax=13;
 const int kmax=5;
 const int jmax=13;
 puts("Dwse stash enarksis kai termatismou ths diadromis: ");
      cin >> r >> s;
-
-
-
-
-
 double CX[imax][jmax][kmax];
 
-//arxikopoihsh timwn pinaka C me 10^6
+//Initialize matrix C with 10 ^ 6
 double C[imax][jmax][kmax];
 
-//---------------------------------euresh xrisimon diadromon------------------------------------
+//--------------------------------------------- FIND USABLE ROUTES -------------------------------------------------------
 double K[kmax];
 double I[imax];
 double J[jmax];
-//---------------------------------euresh xrisimon diadromon------------------------------------
-
 for (i=0;i<imax;i++){
 	for (j=0;j<jmax;j++){
 		for (k=0;k<kmax;k++){
@@ -37,8 +24,7 @@ for (i=0;i<imax;i++){
 		}
 	}
 }
-
-//dhlwsh timwn pinaka metaksu 2 diadoxikwn stasewn twn 2 meswn
+//Declaration of table values between 2 consecutive stops of the 2 transport modes
 C[0][1][0]=1;
 C[1][2][0]=1;
 C[2][3][0]=1;
@@ -59,10 +45,10 @@ C[7][12][3]=1;
 C[12][8][3]=2;
 C[8][0][3]=1;
 
-/*oi parakatw times exoun anw orio th megaluterh apostash (552metra h' 10 lepta) 
-diadoxikwn stasewn tou diktuou kai aforoun to 5o meso ths pezoporias (k=4)*/ 
+//Following values have as upper limit the highest distance (552 m or 10 min) 
+//of consecutive network stops and concern the 5th mode of walking (k=4)
 
-//a)metaksu stasewn idiou mesou
+//a)Between stops of the same trasport mode
 C[0][1][4]=7;
 C[1][2][4]=6;
 C[2][3][4]=7;
@@ -96,9 +82,7 @@ C[12][7][4]=6;
 C[8][12][4]=6;
 C[0][8][4]=2;
 
-
-
-//b)metaksu stasewn diaforetikwn meswn
+//b)Between stops of different trasport modes
 C[0][6][4]=9;
 C[6][0][4]=9;
 C[0][7][4]=5;
@@ -158,11 +142,9 @@ C[12][8][4]=6;
 C[9][10][4]=10;
 C[10][9][4]=10;
 
-//--------------------------------------------------euresh xrisimon diadromon--------------------------------------------------
+//---------------------------------------------- FIND USABLE ROUTES ----------------------------------------------------
 
-
-//euresh twn meswn ektos ths pezoporeias pou aneikoun oi stseis enarksis r kai termatismou s
-
+//find transport modes (except walking) where start stops r and finish stops s belong
 for (i=0;i<imax;i++){
 	for (j=0;j<jmax;j++){
 		for (k=0;k<kmax;k++){
@@ -174,8 +156,6 @@ for (i=0;i<imax;i++){
 		}
 	}
 }
-
-
 for (k=0;k<kmax;k++){
 	if(k!=kmax-1){
 		if (K[k]!=k){
@@ -183,10 +163,7 @@ for (k=0;k<kmax;k++){
 		}
 	}
 }
-
-
-//euresh twn stasewn mono twn meswn pou aneikoun oi r,s
-
+//find transport mode stops where only r,s belong
 for (i=0;i<imax;i++){
 	for (j=0;j<jmax;j++){
 		for (k=0;k<kmax;k++){
@@ -199,21 +176,17 @@ for (i=0;i<imax;i++){
 		}
 	}
 }
-
 for (i=0;i<imax;i++){
 	if (I[i]!=i){
 			I[i]=1000000;					
 	}
 }
-
 for (j=0;j<jmax;j++){
 	if (J[j]!=j){
 			J[j]=1000000;					
 	}
 }
-
-//gia oses staseis apo to i sto j den aneikoun stis parapanw pou vrikame kanoume to C=10^6
-
+//for stops from i to j which don't belong in the above found, we do C = 10 ^ 6
 for (i=0;i<imax;i++){
 	for (j=0;j<jmax;j++){
 		for (k=0;k<kmax;k++){
@@ -225,16 +198,12 @@ for (i=0;i<imax;i++){
 		}
 	}
 }
-
-
-//--------------------------------------------telos eureshs xrisimon diadromon-------------------------------------------------------------------------
+//------------------------------------------- END OF FIND USABLE ROUTES --------------------------------------------------------
 
 IloEnv env;
-
 	try {
 
 		IloModel model (env);
-
 
 typedef IloArray<IloNumVarArray> IloNumVarMatrix2x2;
 typedef IloArray<IloNumVarMatrix2x2> IloNumVarMatrix3x3;
@@ -242,16 +211,9 @@ typedef IloArray<IloNumVarMatrix2x2> IloNumVarMatrix3x3;
 typedef IloArray<IloRangeArray> IloRangeMatrix2x2;
 typedef IloArray<IloRangeMatrix2x2> IloRangeMatrix3x3;
 
-
-
-
-
 IloCplex cplex(env);
 
-
-//--------------  Decision Variable X ---------------------------------------
-
-
+//-----------------------------  Decision Variable X ---------------------------------------
 IloNumVarMatrix3x3 Xijk(env,0);
 for (i=0;i<imax;i++){
 	IloNumVarMatrix2x2 Xjk(env,0);
@@ -270,14 +232,8 @@ for (i=0;i<imax;i++){
 	Xijk.add(Xjk);
 }
 
-
-
-
-
-
-//--------------------------------------------PERIORISMOI-------------------------------------------------//
-
-//----------------periorismos 1--------------------------------
+//-------------------------------------------- CONSTRAINTS -------------------------------------------------
+//--------------------Constraint 1--------------------------------
 IloRangeArray Ai(env,0);
 	i=r; 
 	IloExpr expr1(env,0);
@@ -294,8 +250,7 @@ IloRangeArray Ai(env,0);
 			model.add(A);
 			Ai.add(A);
 			expr1.end();
-
-//-----------------periorismos 1.1----------------------
+//----------------- Constraint 1.1 ----------------------
 IloRangeArray AAj(env,0);
 	j=r; 
 	IloExpr expr3(env,0);
@@ -311,8 +266,8 @@ IloRangeArray AAj(env,0);
 			model.add(AA);
 			AAj.add(AA);
 			expr3.end();
-			
-//-----------------periorismos 2----------------------
+
+//----------------- Constraint 2 ----------------------
 IloRangeArray Tj(env,0);
 	j=s; 
 	IloExpr expr2(env,0);
@@ -328,8 +283,7 @@ IloRangeArray Tj(env,0);
 			model.add(T);
 			Tj.add(T);
 			expr2.end();
-
-//----------------periorismos 2.2--------------------------------
+//---------------- Constraint 2.2--------------------------------
 IloRangeArray TTi(env,0);
 	i=s; 
 	IloExpr expr4(env,0);
@@ -340,14 +294,13 @@ IloRangeArray TTi(env,0);
 //				}
 			}
 		}
-	
 			int LB4=0,UB4=0;
 			IloRange TT(env,LB4,expr4,UB4);		
 			model.add(TT);
 			TTi.add(TT);
 			expr4.end();
 
-//------------------periorismos(3)------------------------------
+//------------------ Constraint 3 ------------------------------
 IloRangeMatrix2x2 Sum_Xij(env,0);
 for (i=0;i<imax;i++){
 	IloRangeArray Sum_Xj(env,0);
@@ -367,8 +320,7 @@ for (i=0;i<imax;i++){
 	Sum_Xij.add(Sum_Xj);
 }
 
-
-//-------------------periorismos(4)---------------------------
+//------------------- Constraint 4 ---------------------------
 IloRangeArray Sumdiaforas_Xj(env,0);
 	for (j=0;j<jmax;j++){
 		IloExpr expr(env,0);
@@ -394,12 +346,7 @@ IloRangeArray Sumdiaforas_Xj(env,0);
 			Sumdiaforas_Xj.add(Sumdiaforas_X);
 			expr.end();
 	 }
-
-
-
-
-//-----------------Antikimeniki sinartisi---------------------------
-
+//----------------- Objective function ---------------------------
 IloExpr expr(env);
 
 for (i=0;i<imax;i++){
@@ -411,7 +358,6 @@ for (i=0;i<imax;i++){
 		}
 	}
 }
-
 model.add(IloMinimize(env, expr));
 expr.end();		
 
@@ -419,9 +365,7 @@ cplex.extract(model);
 cplex.exportModel("onoma.lp");
 cplex.solve();
 
-//----------------------Ektypwsh apotelesmatwn-------------------------------
-
-
+//---------------------- Print Results -------------------------------
 		if (!cplex.solve ()){
 			env.error()<<"Faild to optimize LP."<<endl;
 			throw(-1);
@@ -445,7 +389,6 @@ for (i=0;i<imax;i++){
 		}
 	}
 }	
-
 }
 	catch ( IloException& e){
 		cerr << "concert exception caught:"<<e<<endl;
@@ -455,13 +398,7 @@ for (i=0;i<imax;i++){
 	}
 	env.end();
 
-
-
-
-
-//--------------------------------euresi dromologion-----------------------------------------------------------------------------------------------
-
-
+//-------------------------------- FIND ROUTES -----------------------------------------
 
 	int d,ts,sumt,d1,d2;
 	const int dmax=20;
@@ -469,8 +406,7 @@ for (i=0;i<imax;i++){
 
 	puts("Dwse wra enarksis : ");
      cin >> ts;
-
-
+     
 	//double I[imax];
 	double mint[imax];
 	double D[dmax][kmax];
@@ -488,7 +424,7 @@ for (i=0;i<imax;i++){
 			}
 		}
 	}
-//------------------------xronoi ekinisis tou kathe dromologiou tou kathe mesou (sthn prwth stash tou kathe mesou)-------------------------
+//-----------------Find start hours of every route of every transport mode (at the first stop of the transport mode) -------
 	D[0][0]=700;
 	D[1][0]=730;
 	D[2][0]=830;
@@ -512,9 +448,7 @@ for (i=0;i<imax;i++){
 	D[17][3]=750;
 	D[18][3]=850;
 	D[19][3]=905;
-
-
-//------------------upologismos wrwn ekkinisis apo staseis------------------------------------------------
+//------------------------------ Calculate start hours from stops ------------------------------------------------
 sumt=0;
 for (d=0;d<dmax;d++){
 	for (k=0;k<kmax-1;k++){
@@ -539,11 +473,8 @@ for (i=0;i<imax;i++){
 		}
 	}
 }
-
-
-//---------------------euresh wras ekinhshs sthn stasi ekkinishs-------------------------------------------
+//--------------------- Find start hour at start stop -------------------------------------------
 int min=1000000;
-
 for (d=0;d<dmax;d++){
 	for (k=0;k<kmax-1;k++){
 		for (j=0;j<jmax;j++){
@@ -559,26 +490,16 @@ for (d=0;d<dmax;d++){
 		}
 	}
 }
-
-
 for (k=0;k<kmax-1;k++){
 	for (d=0;d<dmax;d++){
 		if (T[r][d][k]-ts == min){
 			cout<<T[r][d][k]<<endl;
-
 		}else{
 			T[r][d][k]=1000000;
 //			cout<<T[r][d][k]<<endl;
 		}
 	}
 }
-
-
-
-
-
-
 	system("pause");
 	return 0;
-
 } //End main
