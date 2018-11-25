@@ -5,7 +5,7 @@ int i,j,k,k1,k2,m,r,s;
 const int imax=13;
 const int kmax=5;
 const int jmax=13;
-puts("Dwse stash enarksis kai termatismou ths diadromis: ");
+puts("Type start stop and end stop of route: ");
      cin >> r >> s;
 double CX[imax][jmax][kmax];
 
