@@ -1,19 +1,17 @@
 # Journey-planning
-Πολυτροπικός σχεδιασμός ταξιδίου στη Θεσσαλία
+Multimodal journey planning in region of Thessaly, Greece
 
-Τυπική πολυτροπική διαδρομή στην πόλη της Λάρισας:
-• Πεζοπορία
-• 14 γραμμές αστικών λεωφορείων
-• 35 έως 60 στάσεις ανά γραμμή
-• Τα δρομολόγια ανά γραμμή ανάλογα με την περιοχή που καλύπτουν κυμαίνονται σε 10 εώς
-110 ημερησίως
-• Μέγιστη διάρκεια πεζοπορίας αυτή μεταξύ των 2 πιο μακρινών διαδοχικών στάσεων ενός
-μέσου
-Δεδομένα του ταξιδιού:
-• Η τοποθεσία των στάσεων
-• Οι διαδρομές που ακολουθούν τα αστικά λεωφορεία
-• Οι χρόνοι άφιξης σε κάθε στάση
-• Ο μέγιστος χρόνος πεζοπορίας
-• Σημεία εκκίνησης/προορισμού
+Typical multimodal route in the city of Larisa:
+• Walking
+• 14 bus lines
+• 35 to 60 stops per line
+• Routes per line vary with the spanning area from 10 to 110 daily
+• Max walking duration is the one between furthest consecutive stops of a transport mode
+Journey data:
+• Stops location
+• Bus routes
+• Time arrival in every stop
+• Max walking time
+• Start/End points
 
-Στο παράδειγμά μας, σκοπός είναι να πάμε από το σημείο Α στο σημείο Β ελαχιστοποιώντας ένα κριτήριο (κόστος, χρόνος, απόσταση)
+In our example, our purpose is to travel from point Α to point Β minimizing a criterion (time, distance, cost)
