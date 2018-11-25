@@ -9,12 +9,12 @@ using namespace std;
 	  double tr[1],ts[1],apot[3];
 	  int a,b,c,d;
 
-		puts("Dwse tr");
+		puts("Type tr");
 		cin >> tr[0] >> tr[1];
-		puts("Dwse ts");
+		puts("Type ts");
 		cin >> ts[0] >> ts[1];
 
-		puts("\nDwse solution value");
+		puts("\nType solution value");
 		
 		cin >>a>>b>>c>>d;
 
@@ -41,7 +41,7 @@ using namespace std;
 					cout << "an i=1 diadromi apo to 0 sto 1"<< endl;
 					cout << "an i=2 diadromi apo to 1 sto 0"<< endl;
 					cout << "an i=3 diadromi apo to 1 sto 1"<< endl;
-					cout << "\nH veltisth diadromi einai to i = " << i  << " me xrono :" << apot[i]<< endl;
+					cout << "\nOptimal route is i = " << i  << " with time :" << apot[i]<< endl;
 				}
 
 		}
