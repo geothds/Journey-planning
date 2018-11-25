@@ -10,18 +10,18 @@ using namespace std;
   int main()
   {
 	double a[13][2]={{22.4162, 39.6388},
-						  {22.4198, 39.6391},
-						  {22.4223, 39.6379},
-						  {22.4249, 39.6355},
-						  {22.4271, 39.6333},
-						  {22.4244, 39.6370},
-						  {22.4205, 39.6391},
-						  {22.4184, 39.6397},
-						  {22.4167, 39.6398},
-						  {22.4204, 39.6376},
-						  {22.4219, 39.6327},
-						  {22.4227, 39.6302},
-						  {22.4184, 39.6427}};
+			 {22.4198, 39.6391},
+			 {22.4223, 39.6379},
+			 {22.4249, 39.6355},
+			 {22.4271, 39.6333},
+			 {22.4244, 39.6370},
+			 {22.4205, 39.6391},
+			 {22.4184, 39.6397},
+			 {22.4167, 39.6398},
+			 {22.4204, 39.6376},
+			 {22.4219, 39.6327},
+			 {22.4227, 39.6302},
+			 {22.4184, 39.6427}};
 
 		double lat1,long1,smallest,secondsmallest;
 		double PI = 4.0*atan(1.0);
@@ -30,13 +30,13 @@ using namespace std;
 		int foo=0,input;
 
 	do{
-		puts("1. Shmeio enarkshs\n2. Shmeio termatismou");
+		puts("1. Start point\n2. End point");
 		cin >> input;
 		switch(input)
 		{
 			case 1:
 //---------------------------------------Calculate r-----------------------------------------------
-		puts("Dwse suntetagmenes shmeiou enarkshs diadromhs: ");
+		puts("Coordinates of route's start point: ");
 		cin >> lat1 >> long1 ;
 		
        
@@ -56,7 +56,7 @@ using namespace std;
 			double cHarv=2*atan2(sqrt(aHarv),sqrt(1.0-aHarv));
 			dist[i]=(earth*cHarv)/(0.00092*60); //se lepta
 
-			//cout <<"\nH apostasi se lepta ths " << id[i] << "hs stashs apo to simeio enarksis einai: \n" << dist[i] << endl;
+			//cout <<"\nH Distance in point of " << id[i] << "stop from start point is: \n" << dist[i] << endl;
 		}   
 
 	   //Main distance calculation from starting point 
@@ -77,18 +77,18 @@ using namespace std;
 
 		for(int i = 0; i < 13; i++){
 			if (dist[i] == smallest){
-				cout <<"\nStash me thn mikroteri apostash:r1= "<< i << endl;}
+				cout <<"\nStop with smallest distance: r1= "<< i << endl;}
 			if (dist[i] == secondsmallest){
-			cout <<"\nStash me thn deuterh mikroterh apostash:r2= "<< i << endl;}
+			cout <<"\nStop with 2nd smallest distance: r2= "<< i << endl;}
 		}
-		cout <<"\nMikroterh apostash: "<< smallest <<"\nkai 2h mikroterh apostash: "<< secondsmallest << "\n" << endl;
+		cout <<"\nSmallest distance: "<< smallest <<"\nand 2nd smallest distance: "<< secondsmallest << "\n" << endl;
 		break;
 		
 
 			
 			case 2:
 //------------------------------------------------Calculate s--------------------------------------------------	
-		puts("\nDwse suntetagmenes shmeiou termatismou ths diadromis: ");
+		puts("\nCoordinates of route's end point: ");
 		cin >> lat1 >> long1;
 
 		for (int i=0;i<13;i++)
@@ -106,7 +106,7 @@ using namespace std;
 			double cHarv=2*atan2(sqrt(aHarv),sqrt(1.0-aHarv));
 			dist[i]=(earth*cHarv)/(0.00092*60); //se lepta
 
-			//cout <<"\nH apostasi se lepta ths " << id[i] << "hs stashs apo to simeio enarksis einai: \n" << dist[i] << endl;
+			//cout <<"\nDistance in minutes of " << id[i] << "stop from start point is: \n" << dist[i] << endl;
 		}    
    
 			//Main distance calculation from ending point
@@ -127,11 +127,11 @@ using namespace std;
 
 	 for(int i = 0; i < 13; i++){
 		 if (dist[i] == smallest){
-			cout <<"\nStash me thn mikroterh apostash:s1= "<< i << endl;}
+			cout <<"\nStop with smallest distance: s1= "<< i << endl;}
 			if (dist[i] == secondsmallest){
-			cout <<"\nStash me thn deuterh mikroterh apostash:s2= "<< i << endl;}
+			cout <<"\nStop with 2nd smallest distance:s2= "<< i << endl;}
 	 }
-	 cout <<"\nMikroterh apostasi: "<< smallest <<"\nkai 2h mikroterh apostash: "<< secondsmallest <<"\n" << endl;
+	 cout <<"\nSmallest distance: "<< smallest <<"\n and 2nd smallest distance: "<< secondsmallest <<"\n" << endl;
 	 break;
 	 
 //----------------------------------Error--------------------------------------
